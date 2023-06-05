@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -34,54 +35,51 @@ public class LRU extends  ReplacementAlgorithm {
 
             //runs the LRU algo on the current refrence string
             for (int j = 0; j < currRefString.length; j++) {
-                //make sure that the total frames dont increase
-//                if (currPageNum == pageFrameCount) {
-//                    currPageNum = 0;
-//                }
                 //add  the current page request to the frame if not already there
                 if(!pageFrame.contains(currRefString[j])) {
+                    //add until all the frames are filled
                     if (pageFrame.size() < pageFrameCount) {
                         pageFrame.add(currRefString[j]);
                     } else {
-                        //finds the frame to replace
+                        //removes the number from the page frame if did not appear for
+                        //a long time
                         int toRemove = 0;
                         for (int num : pageFrame) {
                             if (!prev.contains(num)){
                                 toRemove = num;
                             }
                         }
+                        //the number to replace
                         currPageNum = pageFrame.indexOf(toRemove);
                         pageFrame.set(currPageNum, currRefString[j]);
                     }
+                    //increment page fault
                     pageFaultCount++;
-                    currPageNum++;
                 } else {
+                    //incremtn page hit
                     pageHitCount++;
                 }
                 //keeps track of the previous numbers
                 if(prev.size() == pageFrameCount-1) {
                     prev.poll();
                 }
+                //adds the the most recent page request to list queue of numbers that recently appeared
                 prev.add(currRefString[j]);
-//                System.out.println("page " +pageFrame);
-//                System.out.println("prev num "+prev);
-//                System.out.println();
-
             }
-            totFaultRate += ((double)getPageFaultCount() / currRefString.length) * 100;
+            faultRate =  ((double)getPageFaultCount() / currRefString.length) * 100;
+            totFaultRate += faultRate;
             display();
-
             i++;
         }
     }
 
-    @Override
-    public void insert(int pageNumber) {
 
-    }
 
-    @Override
     public void display() {
-
+        System.out.println("Reference String:\t" + Arrays.toString(currRefString));
+        System.out.println("Page Frames:\t\t" + pageFrameCount);
+        System.out.println("Fault Rate:\t\t\t" + getPageFaultCount() + "/" + currRefString.length);
+        System.out.println("Hit Rate:\t\t\t" + getPageHitCount() + "/" + currRefString.length);
+        System.out.println();
     }
 }

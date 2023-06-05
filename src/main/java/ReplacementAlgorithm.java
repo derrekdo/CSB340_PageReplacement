@@ -8,7 +8,7 @@ public abstract class ReplacementAlgorithm
 	protected int pageFrameCount;
 
 	protected double totFaultRate;
-
+	protected double faultRate = 0;
 	// the number of physical page frames
 	protected int[] pageFrameList;
 
@@ -40,19 +40,19 @@ public abstract class ReplacementAlgorithm
 		return pageFaultCount;
 	}
 
+	/**
+	 * @return the hit count
+	 */
 	public int getPageHitCount() {
 		return pageHitCount;
 	}
 
+	/**
+	 * @return average fault rate of all reference strings
+	 */
 	public double findAvgFault(){
 		return totFaultRate / referenceString.size();
 	}
 
-	/**
-	 * @param int pageNumber - the page number to be inserted
-	 */
-	public abstract void insert(int pageNumber);
-
-	public abstract void display();
 
 }

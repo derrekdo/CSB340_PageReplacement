@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+
 
 public class FIFO extends ReplacementAlgorithm {
 
     private int[] currRefString;
     private ArrayList<Integer> pageFrame = new ArrayList<>();
     private int currPageNum = 0;
+
     /**
      * @param pageFrameList   - the number of physical page frames
      * @param referenceString
@@ -50,19 +50,13 @@ public class FIFO extends ReplacementAlgorithm {
                     pageHitCount++;
                 }
             }
-            totFaultRate += ((double)getPageFaultCount() / currRefString.length) * 100;
-//            display();
-
-          i++;
+            faultRate = ((double)getPageFaultCount() / currRefString.length) * 100;
+            totFaultRate += faultRate;
+            display();
+            i++;
         }
     }
 
-    @Override
-    public void insert(int pageNumber) {
-//        pageFrame.add(currPageNum, currRefString[j]);
-    }
-
-    @Override
     public void display() {
         System.out.println("Reference String:\t" + Arrays.toString(currRefString));
         System.out.println("Page Frames:\t\t" + pageFrameCount);
