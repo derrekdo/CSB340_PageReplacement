@@ -51,7 +51,7 @@ public class FIFO extends ReplacementAlgorithm {
                 }
             }
             totFaultRate += ((double)getPageFaultCount() / currRefString.length) * 100;
-            display();
+//            display();
 
           i++;
         }
